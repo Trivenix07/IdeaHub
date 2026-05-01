@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Join IdeaHub | Pitch. Vote. Build.</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet"/>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: '#6366f1',
+                        surface: '#030303',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
+        
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #030303;
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+
+        /* Animated Mesh Background */
+        .mesh-bg {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: 
+                radial-gradient(at 0% 0%, hsla(253,16%,7%,1) 0, transparent 50%), 
+                radial-gradient(at 100% 0%, hsla(225,39%,25%,1) 0, transparent 50%), 
+                radial-gradient(at 100% 100%, hsla(339,49%,20%,1) 0, transparent 50%);
+            filter: blur(100px);
+            z-index: -1;
+        }
+
+        /* Glassmorphism Card */
+        .auth-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(25px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .auth-card:hover {
+            border-color: rgba(99, 102, 241, 0.3);
+            transform: translateY(-5px);
+        }
+
+        /* Input Styling */
+        .input-field {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: white;
+            transition: all 0.3s ease;
+        }
+
+        .input-field:focus {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: #6366f1;
+            box-shadow: 0 0 20px rgba(99, 102, 241, 0.15);
+            outline: none;
+        }
+
+        /* Shimmer Button */
+        .btn-shimmer {
+            background: linear-gradient(110deg, #6366f1 45%, #a855f7 55%, #6366f1 65%);
+            background-size: 200% 100%;
+            animation: shimmer 3s infinite linear;
+            transition: all 0.4s;
+        }
+
+        @keyframes shimmer {
+            to { background-position: -200% 0; }
+        }
+
+        #cursor-glow {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100vw; height: 100vh;
+            pointer-events: none;
+            background: radial-gradient(circle 400px at var(--x, 50%) var(--y, 50%), rgba(99, 102, 241, 0.08), transparent 80%);
+            z-index: 1;
+        }
+
+        .reveal {
+            animation: reveal 0.8s cubic-bezier(0, 0, 0.2, 1) forwards;
+        }
+
+        @keyframes reveal {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="flex items-center justify-center min-h-screen p-6 selection:bg-brand/30">
+
+    <div id="cursor-glow"></div>
+    <div class="mesh-bg"></div>
+
+    <div class="max-w-md w-full z-10 reveal">
+        <div class="auth-card p-10 rounded-[2.5rem]">
+            <div class="text-center mb-10">
+                <div class="w-14 h-14 bg-brand rounded-2xl flex items-center justify-center text-white mx-auto mb-6 shadow-[0_0_30px_rgba(99,102,241,0.4)] animate-pulse">
+                    <i class="ri-rocket-2-fill text-2xl"></i>
+                </div>
+                <h1 class="text-3xl font-extrabold tracking-tighter bg-clip-text text-transparent bg-gradient-to-b from-white to-zinc-500">
+                    Join the Circle
+                </h1>
+                <p class="text-zinc-500 text-sm mt-2 font-medium tracking-tight">Your first pitch is moments away.</p>
+            </div>
+
+            <form action="/register" method="POST" class="space-y-4">
+                <div class="grid grid-cols-2 gap-4">
+                    <input type="text" name="name" placeholder="Full Name" required 
+                        class="input-field w-full p-4 rounded-2xl text-sm placeholder:text-zinc-600">
+                    
+                    <input type="text" name="username" placeholder="Username" required 
+                        class="input-field w-full p-4 rounded-2xl text-sm placeholder:text-zinc-600">
+                </div>
+
+                <input type="number" name="age" placeholder="Age" required 
+                    class="input-field w-full p-4 rounded-2xl text-sm placeholder:text-zinc-600">
+
+                <input type="email" name="email" placeholder="Email Address" required 
+                    class="input-field w-full p-4 rounded-2xl text-sm placeholder:text-zinc-600">
+
+                <div class="relative group">
+                    <input type="password" name="password" placeholder="Create Password" required 
+                        class="input-field w-full p-4 rounded-2xl text-sm placeholder:text-zinc-600 pr-12">
+                    <i class="ri-shield-keyhole-line absolute right-5 top-1/2 -translate-y-1/2 text-zinc-600 group-hover:text-brand transition-colors"></i>
+                </div>
+
+                <button type="submit" 
+                    class="btn-shimmer w-full text-white py-4 rounded-2xl font-bold text-xs tracking-[0.2em] shadow-2xl uppercase mt-4 hover:scale-[1.02] active:scale-[0.98]">
+                    INITIALIZE ACCOUNT
+                </button>
+            </form>
+
+            <div class="mt-8 pt-8 border-t border-white/5 text-center">
+                <p class="text-xs text-zinc-500 font-medium">
+                    Already a member? 
+                    <a href="/login" class="text-white font-bold hover:text-brand transition-colors ml-1 underline underline-offset-4 decoration-brand/30">Log in</a>
+                </p>
+            </div>
+        </div>
+
+        <p class="text-center mt-10 text-[10px] font-bold uppercase tracking-[0.5em] text-white/20">
+            Pitch • Vote • Build
+        </p>
+    </div>
+
+    <script>
+        // Cursor Lighting Follow
+        const glow = document.getElementById('cursor-glow');
+        window.addEventListener('mousemove', (e) => {
+            glow.style.setProperty('--x', e.clientX + 'px');
+            glow.style.setProperty('--y', e.clientY + 'px');
+        });
+
+        // Subtle Tilt Effect
+        const card = document.querySelector('.auth-card');
+        document.addEventListener('mousemove', (e) => {
+            const xAxis = (window.innerWidth / 2 - e.pageX) / 50;
+            const yAxis = (window.innerHeight / 2 - e.pageY) / 50;
+            card.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
+        });
+    </script>
+</body>
+</html>

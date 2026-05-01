@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | IdeaHub</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet"/>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
+        
+        :root {
+            --accent: #6366f1;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #030303;
+            color: #ffffff;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: screen;
+        }
+
+        /* Animated Mesh Gradient Background */
+        .mesh-bg {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: 
+                radial-gradient(at 0% 0%, hsla(253,16%,7%,1) 0, transparent 50%), 
+                radial-gradient(at 100% 0%, hsla(225,39%,30%,1) 0, transparent 50%), 
+                radial-gradient(at 100% 100%, hsla(339,49%,30%,1) 0, transparent 50%), 
+                radial-gradient(at 0% 100%, hsla(253,16%,7%,1) 0, transparent 50%);
+            filter: blur(80px);
+            z-index: -1;
+            animation: mesh-move 20s ease infinite alternate;
+        }
+
+        @keyframes mesh-move {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.2) rotate(3deg); }
+        }
+
+        /* Next Level Glass Card */
+        .auth-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(25px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1), border-color 0.4s;
+        }
+
+        .auth-card:hover {
+            border-color: rgba(99, 102, 241, 0.3);
+        }
+
+        /* Input Hover Effects */
+        .input-group {
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .input-field {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .input-field:focus {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: var(--accent);
+            box-shadow: 0 0 20px rgba(99, 102, 241, 0.15);
+            transform: translateY(-2px);
+        }
+
+        /* Mind-Blowing Button Animation */
+        .btn-shimmer {
+            position: relative;
+            background: linear-gradient(110deg, #6366f1 45%, #818cf8 55%, #6366f1 65%);
+            background-size: 200% 100%;
+            animation: shimmer 3s infinite linear;
+            transition: all 0.4s;
+        }
+
+        .btn-shimmer:hover {
+            transform: scale(1.02);
+            box-shadow: 0 0 30px rgba(99, 102, 241, 0.4);
+        }
+
+        @keyframes shimmer {
+            to { background-position: -200% 0; }
+        }
+
+        /* Fade-in reveal */
+        .reveal {
+            opacity: 0;
+            animation: reveal 0.8s forwards ease-out;
+        }
+
+        @keyframes reveal {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <div class="mesh-bg"></div>
+
+    <div class="max-w-md w-full p-6 relative z-10">
+        <div class="auth-card p-10 rounded-[2.5rem] reveal">
+            
+            <div class="flex flex-col items-center mb-10 group">
+                <div class="w-14 h-14 bg-white/5 border border-white/10 rounded-2xl flex items-center justify-center text-white mb-6 transition-transform group-hover:rotate-12 duration-500">
+                    <i class="ri-lightbulb-flash-fill text-3xl text-indigo-400"></i>
+                </div>
+                <h1 class="text-3xl font-extrabold tracking-tighter bg-clip-text text-transparent bg-gradient-to-b from-white to-zinc-500">
+                    Welcome Back
+                </h1>
+                <p class="text-zinc-500 text-sm mt-2 font-medium tracking-tight">The future is built by you.</p>
+            </div>
+
+            <form action="/login" method="POST" class="space-y-6">
+                
+                <div class="input-group">
+                    <label class="text-[10px] font-black uppercase tracking-[0.2em] text-zinc-500 ml-1 mb-2 block">Secure Identifier</label>
+                    <input type="email" name="email" placeholder="email@example.com" required 
+                           class="input-field w-full px-5 py-4 rounded-2xl outline-none text-white text-sm placeholder:text-zinc-600">
+                </div>
+
+                <div class="input-group">
+                    <div class="flex justify-between items-center mb-2 px-1">
+                        <label class="text-[10px] font-black uppercase tracking-[0.2em] text-zinc-500">Access Token</label>
+                    </div>
+                    <div class="relative group">
+                        <input type="password" name="password" placeholder="••••••••" required 
+                               class="input-field w-full px-5 py-4 rounded-2xl outline-none text-white text-sm placeholder:text-zinc-600">
+                        <i class="ri-lock-2-line absolute right-5 top-1/2 -translate-y-1/2 text-zinc-600 group-hover:text-indigo-400 transition-colors"></i>
+                    </div>
+                </div>
+
+                <button type="submit" 
+                        class="btn-shimmer w-full text-white py-4 rounded-2xl font-bold text-sm tracking-widest shadow-2xl uppercase mt-4">
+                    Authenticate
+                </button>
+            </form>
+
+            <div class="mt-10 pt-8 border-t border-white/5 text-center">
+                <p class="text-xs text-zinc-500 font-medium tracking-tight">
+                    New to the circle? 
+                    <a href="/register" class="text-white font-bold hover:text-indigo-400 transition-colors ml-1 underline decoration-indigo-500/30 underline-offset-4">Create account</a>
+                </p>
+            </div>
+        </div>
+
+        <p class="text-center mt-10 text-[10px] font-bold uppercase tracking-[0.5em] text-white/20 reveal" style="animation-delay: 0.3s">
+            Pitch • Vote • Build
+        </p>
+    </div>
+
+    <script>
+        // Subtle Mouse Follow Effect on Card
+        const card = document.querySelector('.auth-card');
+        document.addEventListener('mousemove', (e) => {
+            const xAxis = (window.innerWidth / 2 - e.pageX) / 45;
+            const yAxis = (window.innerHeight / 2 - e.pageY) / 45;
+            card.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
+        });
+    </script>
+</body>
+</html>

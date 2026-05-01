@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IdeaHub | Collaboration Requests</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet"/>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: '#6366f1',
+                        surface: '#050506',
+                        card: '#121215'
+                    },
+                    animation: {
+                        'reveal': 'reveal 0.6s cubic-bezier(0, 0, 0.2, 1) forwards',
+                    },
+                    keyframes: {
+                        reveal: {
+                            '0%': { opacity: '0', transform: 'translateY(15px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+        
+        body { 
+            font-family: 'Plus Jakarta Sans', sans-serif; 
+            background-color: #050506;
+            color: #fafafa;
+            overflow-x: hidden;
+        }
+
+        #cursor-glow {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100vw; height: 100vh;
+            pointer-events: none;
+            background: radial-gradient(circle 400px at var(--x, 50%) var(--y, 50%), rgba(99, 102, 241, 0.08), transparent 80%);
+            z-index: 1;
+        }
+
+        .glass-card {
+            background: rgba(18, 18, 21, 0.6);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .glass-card:hover {
+            border-color: rgba(99, 102, 241, 0.3);
+            background: rgba(22, 22, 26, 0.8);
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+
+        .btn-action {
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            font-weight: 900;
+            letter-spacing: 0.1em;
+            font-size: 10px;
+        }
+    </style>
+</head>
+<body class="selection:bg-brand/30">
+
+    <div id="cursor-glow"></div>
+
+    <!-- NAV -->
+    <nav class="flex justify-between items-center px-10 py-5 sticky top-0 bg-[#050506]/80 backdrop-blur-xl z-50 border-b border-white/5">
+        <div class="flex items-center gap-10">
+            <a href="/profile" class="flex items-center gap-3 group">
+                <div class="w-10 h-10 bg-brand rounded-xl flex items-center justify-center text-white shadow-[0_0_20px_rgba(99,102,241,0.3)] transition-transform group-hover:rotate-12">
+                    <i class="ri-lightbulb-flash-fill text-xl"></i>
+                </div>
+                <h1 class="text-xl font-bold uppercase tracking-[0.2em]">ideahub</h1>
+            </a>
+        </div>
+        
+        <div class="flex items-center gap-8">
+            <a href="/profile" class="text-[10px] font-black uppercase tracking-widest text-zinc-500 hover:text-white transition flex items-center gap-2">
+                <i class="ri-arrow-left-line text-lg"></i>
+                Back to Studio
+            </a>
+        </div>
+    </nav>
+
+    <!-- MAIN -->
+    <main class="max-w-4xl mx-auto px-6 py-16 relative z-10">
+        
+        <!-- Header Section -->
+        <div class="mb-16 animate-reveal opacity-0" style="animation-delay: 0.1s">
+            <h3 class="text-[10px] font-black uppercase tracking-[0.4em] text-zinc-600 mb-4 flex items-center gap-4">
+                <span class="w-12 h-[1px] bg-zinc-800"></span> Incoming Network
+            </h3>
+            <h2 class="text-4xl font-extrabold tracking-tight">Collaboration <span class="text-brand">Requests</span></h2>
+            <p class="text-zinc-500 mt-2 font-medium">Review architects who want to build the future with you.</p>
+        </div>
+
+        <!-- Requests List -->
+        <div class="space-y-8 animate-reveal opacity-0" style="animation-delay: 0.3s">
+            <% if (notifications && notifications.length > 0) { %>
+                <% notifications.forEach(n => { %>
+                    <div class="glass-card rounded-[2.5rem] p-10 group relative overflow-hidden">
+                        <div class="absolute inset-0 bg-gradient-to-tr from-transparent via-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
+
+                        <div class="flex flex-col md:flex-row md:items-center justify-between gap-8">
+                            <!-- Sender Info -->
+                            <div class="flex items-center gap-5">
+                                <div class="w-14 h-14 bg-zinc-800 rounded-2xl flex items-center justify-center text-brand text-xl font-bold border border-white/5 shadow-inner">
+                                    <%= n.sender.username.charAt(0).toUpperCase() %>
+                                </div>
+                                <div>
+                                    <p class="text-[10px] text-zinc-500 font-black uppercase tracking-widest leading-none mb-1">Architect Request</p>
+                                    <p class="text-lg font-bold text-white">@<%= n.sender.username %></p>
+                                    <p class="text-xs text-zinc-600"><%= n.sender.email %></p>
+                                </div>
+                            </div>
+
+                            <!-- Actions -->
+                          <div class="flex items-center gap-3">
+    <% if (n.status === "pending") { %>
+
+        <a href="/accept/<%= n._id %>" 
+           class="btn-action bg-green-500/10 text-green-400 px-8 py-4 rounded-2xl border border-green-500/20 hover:bg-green-500 hover:text-white">
+            Accept
+        </a>
+
+        <a href="/reject/<%= n._id %>" 
+           class="btn-action bg-red-500/10 text-red-400 px-8 py-4 rounded-2xl border border-red-500/20 hover:bg-red-500 hover:text-white">
+            Reject
+        </a>
+
+    <% } else if (n.status === "accepted") { %>
+
+        <div class="px-6 py-3 rounded-xl bg-brand/20 text-brand font-bold text-xs">
+            ✅ Collaborated
+        </div>
+
+    <% } %>
+</div>
+                        </div>
+
+                        <!-- Post Reference -->
+                        <div class="mt-8 pt-8 border-t border-white/5">
+                            <p class="text-[9px] font-black text-zinc-700 uppercase tracking-[0.2em] mb-3">Target Concept</p>
+                            <div class="bg-white/[0.02] p-6 rounded-2xl border border-white/5 group-hover:border-brand/20 transition-colors">
+                                <p class="text-zinc-300 italic font-medium leading-relaxed">
+                                    "<%= n.post.content %>"
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                <% }) %>
+            <% } else { %>
+                <!-- Empty State -->
+                <div class="text-center py-24 glass-card rounded-[3rem] border-dashed">
+                    <div class="w-20 h-20 bg-zinc-900/50 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="ri-mail-open-line text-4xl text-zinc-700"></i>
+                    </div>
+                    <p class="text-zinc-500 font-bold uppercase tracking-widest text-[10px]">Your inbox is clear. No pending requests.</p>
+                </div>
+            <% } %>
+        </div>
+    </main>
+
+    <script>
+        // Cursor Lighting Effect
+        const glow = document.getElementById('cursor-glow');
+        window.addEventListener('mousemove', (e) => {
+            glow.style.setProperty('--x', e.clientX + 'px');
+            glow.style.setProperty('--y', e.clientY + 'px');
+        });
+    </script>
+</body>
+</html>
