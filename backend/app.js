@@ -250,6 +250,8 @@ app.get("/requests", isLoggedIn, async (req, res) => {
 
 });
 
+
+
 // accept collab request route 
 app.get("/accept/:id", isLoggedIn, async (req, res) => {
     await Notification.findByIdAndUpdate(req.params.id, {
