@@ -20,6 +20,17 @@ const port = process.env.PORT || 3000;
 app.listen(port, () => {
   console.log(`app is listening at port ${port}`);
 });
+const mongoose = require('mongoose');
+
+mongoose.connect(process.env.MONGO_URI)
+.then(() => console.log("MongoDB Atlas Connected "))
+.catch(err => console.log(err));
+
+
+
+
+
+
 // PROFILE GET 
 app.get("/profile", isLoggedIn, async (req, res) => {
   let user = await userModel.findOne({email: req.user.email}).populate("posts");
