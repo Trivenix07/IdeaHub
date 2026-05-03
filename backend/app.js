@@ -4,6 +4,16 @@ if (process.env.NODE_ENV !== "production") {
 
 const express = require("express");
 const app =express();
+//adding cors
+const cors = require("cors");
+
+app.use(cors({
+  origin: "https://ideahub-azure.vercel.app",
+  credentials: true
+}));
+
+
+
 app.set("view engine", "ejs");
 const path = require("path");
 app.set("views",path.join(__dirname, "/views"));
