@@ -32,4 +32,4 @@ This project is not just a social app — it’s a step toward building a space 
 
 Frontend deployed on Vercel ||
 Backend deployed on Render  ||
-Database hosted on MongoDB Atlas 
+Database hosted on MongoDB Atlas ||
