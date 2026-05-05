@@ -186,7 +186,7 @@ app.post('/register', async (req, res) => {
             );
 
             res.cookie("token", token);
-            res.redirect("/profile");
+            res.redirect("/");
         });
     });
 });
@@ -210,7 +210,7 @@ app.post('/login', async (req, res) => {
             );
 
             res.cookie("token", token);
-            res.status(200).redirect("/profile");
+            res.status(200).redirect("/");
         }else res.redirect("/login");
     })
 });

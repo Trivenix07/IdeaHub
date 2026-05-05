@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en" class="dark">
 <head>
 <meta charset="UTF-8">
@@ -142,6 +142,42 @@ nav a:hover {
 html {
     scroll-behavior: smooth;
 }
+
+/* media query */
+@media (max-width: 640px) {
+
+    /* Make blobs smaller */
+    .blob {
+        width: 280px;
+        height: 280px;
+        filter: blur(100px);
+        opacity: 0.2;
+    }
+
+    /* Push blobs more to corners */
+    .blob1 {
+        top: -120px;
+        left: -120px;
+    }
+
+    .blob2 {
+        bottom: -120px;
+        right: -120px;
+    }
+
+    /* Darken center again */
+    body {
+        background: radial-gradient(circle at 50% 40%, #020203, #000000 85%);
+    }
+
+    /* Reduce grid intensity */
+    .grid-layer {
+        opacity: 0.08;
+        background-size: 50px 50px;
+    }
+}
+
+
 </style>
 </head>
 
